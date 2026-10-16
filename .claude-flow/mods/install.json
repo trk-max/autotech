@@ -1,0 +1,16 @@
+{
+  "version": 2,
+  "installedAt": "2026-10-16T01:20:11.407Z",
+  "files": {
+    "/home/claude/autotech/.claude/settings.json": {
+      "plugins": [
+        "ruflo-mods@ruflo",
+        "ruflo-swarm@ruflo",
+        "ruflo-console@ruflo"
+      ],
+      "marketplace": true,
+      "env": true,
+      "claudeInstalled": []
+    }
+  }
+}

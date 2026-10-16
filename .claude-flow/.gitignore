@@ -1,0 +1,8 @@
+# Claude Flow runtime files
+data/
+logs/
+sessions/
+neural/
+console/
+*.log
+*.tmp
