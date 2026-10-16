@@ -13,7 +13,7 @@
 export const MAX_DTCS = 10;
 const INTRUSIVENESS_PENALTY = [1, 1, 1.3, 1.8, 2.6, 4]; // index = intrusiveness 1..5
 const PASS_FACTOR = 0.05;   // test in spec → cause very unlikely
-const FAIL_FACTOR = 3;      // test out of spec → cause much more likely
+const FAIL_FACTOR = 8;      // test out of spec → strong evidence for this cause
 export const CONFIRM_THRESHOLD = 0.8;
 
 export type CauseKind =

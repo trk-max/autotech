@@ -295,7 +295,7 @@ export async function seed(client: Client): Promise<void> {
 
     const tGnd12 = await tp({ title: 'Chute de tension au point de masse 12', minutes: 6, intr: 1, tools: ['Multimètre'], g: gGolf, target: 'node', node: nGnd12 });
     await step(tGnd12, 1, 'Moteur tournant, allumer phares et dégivrage. Mesurer la tension entre le **point de masse 12** et la **borne − de la batterie**.', psGnd12Drop);
-    await step(tGnd12, 2, 'Contrôler visuellement le point de masse 12 : corrosion, écrou desserré, cosse endommagée.');
+    await step(tGnd12, 2, 'Contrôler visuellement le point de masse 12 (corrosion, écrou desserré, cosse endommagée). Est-il en bon état ?');
 
     const tCan = await tp({ title: 'Contrôle du CAN propulsion (terminaison et niveaux)', minutes: 10, intr: 2, tools: ['Multimètre', 'Boîtier de dérivation'], g: gGolf, target: 'bus', bus: busPT });
     await step(tCan, 1, 'Contact mis : mesurer la tension CAN-H par rapport à la masse au connecteur **T20 de J533** (broche 6).', psCanHVolt);
