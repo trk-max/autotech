@@ -6,3 +6,13 @@ dist
 storage/
 *.tsbuildinfo
 coverage
+
+# Ruflo local secrets and runtime data
+.env.*.local
+.claude-flow/data/
+.claude-flow/logs/
+.claude-flow/sessions/
+.swarm/
+ruvector.db
+.claude/settings.json.bak-*
+.claude-flow/metrics/
