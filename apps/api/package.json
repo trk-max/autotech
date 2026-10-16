@@ -10,7 +10,6 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@autotech/db": "workspace:*",
     "@autotech/engines": "workspace:*",
     "@nestjs/common": "^11.1.0",
     "@nestjs/core": "^11.1.0",

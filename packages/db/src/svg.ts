@@ -46,7 +46,7 @@ export function renderDiagram(input: {
       `<path class="hit" d="${d}"/>` +
       `<path class="core c-${w.colourPrimary}" d="${d}"/>` +
       (w.colourStripe ? `<path class="stripe c-${w.colourStripe}" d="${d}"/>` : '') +
-      (w.label ? `<text class="wire-label" x="${(w.points[0]![0] + w.points[1]![0]) / 2}" y="${(w.points[0]![1] + w.points[1]![1]) / 2 - 6}">${esc(colour)} · ${esc(w.label)}</text>` : '') +
+      (w.label && Math.hypot(w.points[1]![0] - w.points[0]![0], w.points[1]![1] - w.points[0]![1]) >= 120 ? `<text class="wire-label" x="${(w.points[0]![0] + w.points[1]![0]) / 2}" y="${(w.points[0]![1] + w.points[1]![1]) / 2 - 6}">${esc(colour)} · ${esc(w.label)}</text>` : '') +
       `</g>`,
     );
   }

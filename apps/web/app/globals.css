@@ -1,0 +1,211 @@
+@import "tailwindcss";
+@import "@fontsource/barlow/400.css";
+@import "@fontsource/barlow/500.css";
+@import "@fontsource/barlow/600.css";
+@import "@fontsource/barlow-condensed/500.css";
+@import "@fontsource/barlow-condensed/600.css";
+@import "@fontsource/barlow-condensed/700.css";
+@import "dockview/dist/styles/dockview.css";
+
+/*
+  "Service bay at night" — slate graphite surfaces like an oscilloscope bench,
+  instrument yellow (multimeter) for anything the technician acts on or measures,
+  HV orange reserved strictly for high-voltage content (industry cable colour).
+*/
+:root {
+  --bay: #151b23;
+  --panel: #1b232d;
+  --panel-2: #212b37;
+  --line: #2c3846;
+  --line-strong: #3a4859;
+  --ink: #e7ebf1;
+  --ink-2: #b9c3d0;
+  --muted: #8592a3;
+  --instrument: #f5c518;
+  --instrument-ink: #1a1500;
+  --hv: #ff7a1a;
+  --pass: #3fb37f;
+  --fail: #f0545c;
+  --link: #8cc4ff;
+  --wire-sw: #5d6670; --wire-rt: #e5484d; --wire-br: #9a6a43; --wire-ws: #f2f4f7; --wire-gn: #3fb37f; --wire-bl: #4c8dff;
+  --wire-ge: #f5d33d; --wire-or: #ff9a3c; --wire-gr: #9aa4ae; --wire-li: #a77bf3; --wire-rs: #f39bc4;
+  --radius-s: 4px;
+  --radius-m: 8px;
+  color-scheme: dark;
+}
+
+@theme inline {
+  --font-sans: "Barlow", system-ui, sans-serif;
+  --font-cond: "Barlow Condensed", "Barlow", sans-serif;
+  --color-bay: var(--bay);
+  --color-panel: var(--panel);
+  --color-panel-2: var(--panel-2);
+  --color-line: var(--line);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-muted: var(--muted);
+  --color-instrument: var(--instrument);
+  --color-hv: var(--hv);
+  --color-pass: var(--pass);
+  --color-fail: var(--fail);
+}
+
+html, body { height: 100%; }
+body {
+  margin: 0;
+  background: var(--bay);
+  color: var(--ink);
+  font-family: "Barlow", system-ui, sans-serif;
+  font-size: 15px;
+  line-height: 1.45;
+  font-feature-settings: "tnum" 1, "lnum" 1;
+  -webkit-font-smoothing: antialiased;
+}
+::selection { background: var(--instrument); color: var(--instrument-ink); }
+:focus-visible { outline: 2px solid var(--instrument); outline-offset: 2px; border-radius: 2px; }
+a { color: var(--link); }
+
+.cond { font-family: "Barlow Condensed", "Barlow", sans-serif; }
+h1, h2, h3 { font-family: "Barlow Condensed", "Barlow", sans-serif; font-weight: 600; letter-spacing: .01em; margin: 0; }
+
+@layer components {
+/* ---------- controls ---------- */
+.btn {
+  display: inline-flex; align-items: center; gap: 8px; height: 36px; padding: 0 14px;
+  border-radius: var(--radius-s); border: 1px solid var(--line-strong); background: var(--panel-2);
+  color: var(--ink); font: 500 14px/1 "Barlow", sans-serif; cursor: pointer; white-space: nowrap;
+}
+.btn:hover:not(:disabled) { border-color: var(--ink-2); }
+.btn:disabled { opacity: .45; cursor: not-allowed; }
+.btn-primary { background: var(--instrument); border-color: var(--instrument); color: var(--instrument-ink); font-weight: 600; }
+.btn-primary:hover:not(:disabled) { background: #ffd43a; border-color: #ffd43a; }
+.btn-hv { background: var(--hv); border-color: var(--hv); color: #1d0b00; font-weight: 600; }
+.btn-ghost { background: transparent; border-color: transparent; color: var(--ink-2); }
+.btn-ghost:hover:not(:disabled) { color: var(--ink); border-color: var(--line); }
+.btn-sm { height: 30px; padding: 0 10px; font-size: 13px; }
+
+.input {
+  height: 38px; padding: 0 12px; border-radius: var(--radius-s); border: 1px solid var(--line-strong);
+  background: #11161d; color: var(--ink); font: 400 15px/1 "Barlow", sans-serif; min-width: 0;
+}
+.input::placeholder { color: #66727f; }
+.input:focus { outline: none; border-color: var(--instrument); box-shadow: 0 0 0 1px var(--instrument); }
+.input-num { font-family: "Barlow Condensed", sans-serif; font-size: 20px; font-weight: 600; text-align: right; }
+
+.label { font-size: 13px; color: var(--muted); font-weight: 500; }
+.hairline { border-color: var(--line); }
+
+.badge {
+  display: inline-flex; align-items: center; gap: 6px; height: 22px; padding: 0 8px; border-radius: 3px;
+  font: 600 12px/1 "Barlow Condensed", sans-serif; letter-spacing: .02em; border: 1px solid var(--line-strong); color: var(--ink-2);
+}
+.badge-hv { border-color: var(--hv); color: var(--hv); }
+.badge-pass { border-color: var(--pass); color: var(--pass); }
+.badge-fail { border-color: var(--fail); color: var(--fail); }
+.badge-due { border-color: var(--instrument); color: var(--instrument); }
+
+.code-chip {
+  display: inline-flex; align-items: center; gap: 6px; height: 30px; padding: 0 6px 0 10px; border-radius: 3px;
+  background: #11161d; border: 1px solid var(--line-strong);
+  font: 700 17px/1 "Barlow Condensed", sans-serif; letter-spacing: .04em;
+}
+
+.panel-scroll { height: 100%; overflow: auto; }
+.panel-pad { padding: 20px 24px 40px; max-width: 1100px; }
+
+.prob-track { height: 6px; background: #10151b; border-radius: 3px; overflow: hidden; }
+.prob-fill { height: 100%; background: var(--instrument); border-radius: 3px; transition: width .35s ease; }
+
+.list-row { border-bottom: 1px solid var(--line); }
+.list-row:last-child { border-bottom: 0; }
+
+.md strong { color: var(--ink); font-weight: 600; }
+
+.hv-band {
+  background: repeating-linear-gradient(-45deg, rgba(255,122,26,.16) 0 10px, rgba(255,122,26,.06) 10px 20px);
+  border: 1px solid var(--hv);
+}
+
+}
+
+/* ---------- wiring viewer ---------- */
+.wiring-host { width: 100%; height: 100%; background: #0f141a; cursor: grab; touch-action: none; }
+.wiring-host:active { cursor: grabbing; }
+.wiring-host svg { width: 100%; height: 100%; display: block; }
+.wiring-host .sheet { fill: #10161d; }
+.wiring-host .comp rect { fill: #18212b; stroke: #4a5a6d; stroke-width: 1.5; }
+.wiring-host .comp.ecu rect { stroke-dasharray: none; fill: #1a2531; }
+.wiring-host .comp-ref { fill: var(--ink); font: 700 17px "Barlow Condensed", sans-serif; }
+.wiring-host .comp-label { fill: var(--muted); font: 500 13px "Barlow", sans-serif; }
+.wiring-host .comp { cursor: pointer; }
+.wiring-host .comp:hover rect { stroke: var(--ink-2); }
+.wiring-host .wire { cursor: pointer; }
+.wiring-host .wire .hit { stroke: transparent; stroke-width: 14; fill: none; }
+.wiring-host .wire .core { stroke-width: 3; fill: none; stroke-linejoin: round; }
+.wiring-host .wire .stripe { stroke-width: 3; fill: none; stroke-dasharray: 6 8; stroke-linejoin: round; }
+.wiring-host .wire-label { fill: #7b8796; font: 500 11px "Barlow", sans-serif; pointer-events: none; }
+.wiring-host .node .hit { fill: transparent; }
+.wiring-host .node { cursor: pointer; }
+.wiring-host .pin { fill: #0f141a; stroke: var(--ink-2); stroke-width: 1.5; }
+.wiring-host .splice { fill: var(--ink-2); }
+.wiring-host .fuse { fill: #222c38; stroke: var(--ink-2); stroke-width: 1.5; }
+.wiring-host .gnd { stroke: var(--ink-2); stroke-width: 2; fill: none; }
+.wiring-host .node-label { fill: var(--ink-2); font: 600 12px "Barlow Condensed", sans-serif; pointer-events: none; }
+
+/* DIN 72551 colour codes */
+.wiring-host .core.c-sw { stroke: #5d6670; }   /* black core lifted so it reads on the dark sheet */
+.wiring-host .stripe.c-sw { stroke: #0b0f14; }  /* black tracer drawn as dark dashes */
+.wiring-host .c-rt { stroke: #e5484d; }
+.wiring-host .c-br { stroke: #9a6a43; }
+.wiring-host .c-ws { stroke: #f2f4f7; }
+.wiring-host .c-gn { stroke: #3fb37f; }
+.wiring-host .c-bl { stroke: #4c8dff; }
+.wiring-host .c-ge { stroke: #f5d33d; }
+.wiring-host .c-or { stroke: #ff9a3c; }
+.wiring-host .c-gr { stroke: #9aa4ae; }
+.wiring-host .c-li { stroke: #a77bf3; }
+.wiring-host .c-rs { stroke: #f39bc4; }
+
+.wiring-host.has-trace .wire:not(.traced) { opacity: .16; }
+.wiring-host.has-trace .node:not(.traced) { opacity: .35; }
+.wiring-host .wire.traced .core { stroke-width: 5; }
+.wiring-host .wire.traced { filter: drop-shadow(0 0 4px rgba(245, 197, 24, .85)); }
+.wiring-host .node.traced .pin, .wiring-host .node.traced .splice { stroke: var(--instrument); fill: var(--instrument); }
+.wiring-host .focus-ring { fill: none; stroke: var(--instrument); stroke-width: 3; animation: pulse 1.4s ease-out 3; }
+.wiring-host .selected rect { stroke: var(--instrument) !important; stroke-width: 2.5; }
+@keyframes pulse { from { r: 8; opacity: 1; } to { r: 34; opacity: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  .prob-fill { transition: none; }
+  .wiring-host .focus-ring { animation: none; }
+}
+
+/* ---------- dockview theme ---------- */
+.dockview-theme-atelier {
+  --dv-paneview-active-outline-color: var(--instrument);
+  --dv-tabs-and-actions-container-font-size: 14px;
+  --dv-tabs-and-actions-container-height: 38px;
+  --dv-drag-over-background-color: rgba(245, 197, 24, .12);
+  --dv-drag-over-border-color: var(--instrument);
+  --dv-tabs-container-scrollbar-color: var(--line-strong);
+  --dv-icon-hover-background-color: rgba(255, 255, 255, .06);
+  --dv-floating-box-shadow: 0 10px 30px rgba(0, 0, 0, .45);
+  --dv-group-view-background-color: var(--panel);
+  --dv-tabs-and-actions-container-background-color: var(--bay);
+  --dv-activegroup-visiblepanel-tab-background-color: var(--panel);
+  --dv-activegroup-hiddenpanel-tab-background-color: var(--bay);
+  --dv-inactivegroup-visiblepanel-tab-background-color: var(--panel);
+  --dv-inactivegroup-hiddenpanel-tab-background-color: var(--bay);
+  --dv-tab-divider-color: var(--line);
+  --dv-activegroup-visiblepanel-tab-color: var(--ink);
+  --dv-activegroup-hiddenpanel-tab-color: var(--muted);
+  --dv-inactivegroup-visiblepanel-tab-color: var(--ink-2);
+  --dv-inactivegroup-hiddenpanel-tab-color: #6d7987;
+  --dv-separator-border: var(--line);
+  --dv-paneview-header-border-color: var(--line);
+  --dv-sash-color: transparent;
+  --dv-active-sash-color: var(--instrument);
+  --dv-border-radius: 0px;
+}
+.dockview-theme-atelier .dv-tab { font-family: "Barlow Condensed", "Barlow", sans-serif; font-weight: 600; letter-spacing: .02em; padding: 0 6px 0 14px; }
+.dockview-theme-atelier .dv-tabs-and-actions-container .dv-tab.dv-active-tab { box-shadow: inset 0 2px 0 var(--instrument); }
+.dockview-theme-atelier .dv-groupview { border-top: 1px solid var(--line); }

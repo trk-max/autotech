@@ -1,0 +1,14 @@
+# Local PostgreSQL 16 for development (ltree, pg_trgm and pgcrypto ship with the official image).
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: autotech
+    ports:
+      - "5432:5432"
+    volumes:
+      - autotech-db:/var/lib/postgresql/data
+volumes:
+  autotech-db:
