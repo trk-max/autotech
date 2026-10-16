@@ -1,0 +1,19 @@
+{
+  "name": "autotech",
+  "private": true,
+  "version": "0.1.0",
+  "packageManager": "pnpm@10.28.0",
+  "scripts": {
+    "build:engines": "pnpm --filter @autotech/engines build",
+    "db:migrate": "pnpm --filter @autotech/db migrate",
+    "db:seed": "pnpm --filter @autotech/db seed",
+    "db:reset": "pnpm --filter @autotech/db reset",
+    "dev:api": "pnpm --filter @autotech/api dev",
+    "dev:web": "pnpm --filter @autotech/web dev",
+    "dev": "pnpm build:engines && pnpm -r --parallel --filter @autotech/api --filter @autotech/web dev",
+    "test": "pnpm -r test",
+    "typecheck": "pnpm -r typecheck",
+    "build": "pnpm build:engines && pnpm -r --filter @autotech/api --filter @autotech/web build",
+    "check": "pnpm build:engines && pnpm typecheck && pnpm test && pnpm build"
+  }
+}

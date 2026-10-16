@@ -1,0 +1,24 @@
+{
+  "name": "@autotech/db",
+  "version": "0.1.0",
+  "private": true,
+  "main": "src/index.ts",
+  "scripts": {
+    "migrate": "tsx src/migrate.ts",
+    "seed": "tsx src/seed.ts",
+    "reset": "tsx src/reset.ts",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "test": "echo \"(db: covered by API integration tests)\""
+  },
+  "dependencies": {
+    "@autotech/engines": "workspace:*",
+    "dotenv": "^17.2.0",
+    "pg": "^8.16.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/pg": "^8.15.0",
+    "tsx": "^4.20.0",
+    "typescript": "^5.9.0"
+  }
+}
